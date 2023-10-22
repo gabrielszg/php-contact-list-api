@@ -43,7 +43,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 Além disto é bom ter um editor para trabalhar com o código como [VSCode][vscode]
 
 ### Clonar o Projeto
-https://github.com/gabrielszg/shopping-list-react-native
+https://github.com/gabrielszg/php-contact-list-api.git
 
 ### Criar Banco de Dados (MySQL)
 
