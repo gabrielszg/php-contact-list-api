@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: company-db
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'enterprise'
+      MYSQL_ROOT_USER: 'root'
+      MYSQL_ROOT_PASSWORD: 'user123'
+    ports:
+      - 3306:3306
+    volumes:
+      - my-company:/var/lib/mysql
+volumes:
+  my-company:
