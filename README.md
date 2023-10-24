@@ -71,6 +71,23 @@ http://localhost:8000/contacts -> Listar Contatos
 
 ```
 
+### ⚠ Observação
+
+Caso seja a primeira instalação do PHP no windows, siga as instruções abaixo:
+
+```bash
+
+# Abra a pasta em que o php foi instalado e localize o arquivo 
+php.ini-production
+
+# Abra o arquivo com o editor de texto de sua preferência e retire o ";" da seguinte linha
+extension=pdo_mysql
+
+# Salve a alteração e logo após renomeie o arquivo para
+php.ini
+
+```
+
 ---
 
 ## 🛠 Tecnologias
