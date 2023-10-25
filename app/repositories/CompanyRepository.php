@@ -8,8 +8,7 @@ class CompanyRepository {
 
     public function __construct(
         protected \PDO $pdo
-    )
-    { }
+    ) { }
 
     public function findAll() {
         $sql = 'SELECT * FROM '.self::$table;

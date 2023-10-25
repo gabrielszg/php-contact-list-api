@@ -10,8 +10,7 @@ class CompanyService {
 
     public function __construct(
         protected \PDO $pdo
-    )
-    { 
+    ) { 
         $this->companyRepository = new CompanyRepository($pdo);
     }
 
