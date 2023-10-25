@@ -8,13 +8,10 @@ use ContactsApi\Services\CompanyService;
 
 class CompanyController {
 
-  private static $table = 'company';
-
-  protected CompanyService $companyService;
+  private CompanyService $companyService;
 
   public function __construct(
-    protected \PDO $pdo,
-    
+    protected \PDO $pdo
   ) { 
     $this->companyService = new CompanyService($pdo);
   }
