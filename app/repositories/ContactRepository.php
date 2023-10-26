@@ -2,13 +2,13 @@
 
 namespace ContactsApi\Repositories;
 
+use ContactsApi\DB\Database;
+
 class ContactRepository {
 
     private static $table = 'contacts';
 
-    public function __construct(
-        protected \PDO $pdo
-    ) { }
+    public function __construct() { }
 
     public function findAllOrFilterByParam(array $params) {
         $companyFilter = $params['company'] ?? null;
@@ -44,7 +44,7 @@ class ContactRepository {
             $sql .= ' AND email = :email';
         }
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
 
         if ($companyFilter) {
             $stmt->bindParam(':company', $companyFilter);
@@ -79,7 +79,7 @@ class ContactRepository {
     public function save(array $contact) {
         $sql = 'INSERT INTO ' . self::$table . ' (name, last_name, birth_date, landline, cell_phone, email, company_id)
         VALUES (:name, :last_name, :birth_date, :landline, :cell_phone, :email, :company_id)';
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
     
         $stmt->bindValue(':name', $contact['name']);
         $stmt->bindValue(':last_name', $contact['last_name']);
@@ -104,7 +104,7 @@ class ContactRepository {
                 
                 WHERE id = :id';
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindValue(':name', $contact['name']);
         $stmt->bindValue(':last_name', $contact['last_name']);
         $stmt->bindValue(':birth_date', $contact['birth_date']);
@@ -120,7 +120,7 @@ class ContactRepository {
     public function delete(int $id) {
         $sql = 'DELETE FROM '.self::$table.' WHERE id = :id';
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
         $stmt->closeCursor();
