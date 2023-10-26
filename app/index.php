@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/database/Database.php';
 
 use ContactsApi\Container\Container;
 use ContactsApi\Controllers\CompanyController;
@@ -8,21 +9,13 @@ use ContactsApi\Controllers\ContactController;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Factory\AppFactory;
-use ContactsApi\DB\Database;
 
 $container = new Container();
-$container->set(ContactController::class, function (Container $container) {
-  return new ContactController($container->get(\PDO::class));
+$container->set(ContactController::class, function () {
+  return new ContactController();
 });
-
-$container->set(CompanyController::class, function (Container $container) {
-  return new CompanyController($container->get(\PDO::class));
-});
-
-$container->set(\PDO::class, function () {
-  $pdo = new \PDO('mysql:host=localhost;port=3306;dbname=enterprise', 'root', 'user123');
-  $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-  return $pdo;
+$container->set(CompanyController::class, function () {
+  return new CompanyController();
 });
 
 AppFactory::setContainer($container);
