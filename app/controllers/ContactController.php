@@ -10,10 +10,8 @@ class ContactController {
 
   private ContactService $contactService;
 
-  public function __construct(
-    protected \PDO $pdo
-  ) { 
-    $this->contactService = new ContactService($pdo);
+  public function __construct() { 
+    $this->contactService = new ContactService();
   }
 
   public function findAllOrFilterByParam(ServerRequestInterface $request, ResponseInterface $response, array $args) {

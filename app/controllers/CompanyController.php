@@ -10,10 +10,8 @@ class CompanyController {
 
   private CompanyService $companyService;
 
-  public function __construct(
-    protected \PDO $pdo
-  ) { 
-    $this->companyService = new CompanyService($pdo);
+  public function __construct() { 
+    $this->companyService = new CompanyService();
   }
 
   public function findAll(ServerRequestInterface $request, ResponseInterface $response) {
