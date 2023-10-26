@@ -2,6 +2,7 @@
 
 namespace ContactsApi\Services;
 
+use ContactsApi\Models\CompanyModel;
 use ContactsApi\Repositories\CompanyRepository;
 
 class CompanyService {
@@ -16,7 +17,7 @@ class CompanyService {
         return $this->companyRepository->findAll();
     }
 
-    public function save(array $company) {
+    public function save(CompanyModel $company): CompanyModel {
         return $this->companyRepository->save($company);
     }
 

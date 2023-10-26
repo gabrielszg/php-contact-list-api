@@ -3,6 +3,7 @@
 namespace ContactsApi\Repositories;
 
 use ContactsApi\DB\Database;
+use ContactsApi\Models\CompanyModel;
 
 class CompanyRepository {
 
@@ -21,11 +22,11 @@ class CompanyRepository {
         return $companies;
     }
 
-    public function save(array $company) {
+    public function save(CompanyModel $company) {
         $sql = 'INSERT INTO ' . self::$table . ' (name) VALUES (:name)';
 
         $stmt = Database::getInstance()->prepare($sql);
-        $stmt->bindValue(':name', $company['name']);
+        $stmt->bindValue(':name', $company->getName());
         $stmt->execute();
 
         return $company;
