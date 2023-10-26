@@ -8,10 +8,8 @@ class ContactService {
 
     private ContactRepository $contactRepository;
 
-    public function __construct(
-        protected \PDO $pdo
-    ) { 
-        $this->contactRepository = new ContactRepository($pdo);
+    public function __construct() { 
+        $this->contactRepository = new ContactRepository();
     }
 
     public function findAllOrFilterByParam(array $params) {

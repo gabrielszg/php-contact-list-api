@@ -8,10 +8,8 @@ class CompanyService {
 
     private CompanyRepository $companyRepository;
 
-    public function __construct(
-        protected \PDO $pdo
-    ) { 
-        $this->companyRepository = new CompanyRepository($pdo);
+    public function __construct() { 
+        $this->companyRepository = new CompanyRepository();
     }
 
     public function findAll() {
