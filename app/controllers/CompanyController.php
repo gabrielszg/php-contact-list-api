@@ -2,6 +2,7 @@
 
 namespace ContactsApi\Controllers;
 
+use ContactsApi\Models\CompanyModel;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use ContactsApi\Services\CompanyService;
@@ -28,7 +29,10 @@ class CompanyController {
   }
 
   public function create(ServerRequestInterface $request, ResponseInterface $response) {
-    $company = (array) $request->getParsedBody();
+    $data = (object) $request->getParsedBody();
+
+    $company = new CompanyModel();
+    $company->setName($data->name);
 
     try {
       $companySaved = $this->companyService->save($company);
