@@ -64,8 +64,8 @@ $ docker-compose up
 $ php -S localhost:8000
 
 # A API estará disponível no endereço
-http://localhost:8000/company -> Listar Empresas
-http://localhost:8000/contacts -> Listar Contatos
+http://localhost:8000/app/companies -> Listar Empresas
+http://localhost:8000/app/contacts -> Listar Contatos
 
 # Utilizar o PostMan ou Insomnia para consumir a API
 
