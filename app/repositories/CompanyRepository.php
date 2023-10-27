@@ -32,11 +32,11 @@ class CompanyRepository {
         return $company;
     }
 
-    public function update(array $company, int $id) {
+    public function update(CompanyModel $company, int $id) {
         $sql = 'UPDATE '.self::$table.' SET name = :name WHERE id = :id';
 
         $stmt = Database::getInstance()->prepare($sql);
-        $stmt->bindValue(':name', $company['name']);
+        $stmt->bindValue(':name', $company->getName());
         $stmt->bindValue(':id', $id);
         $stmt->execute();
 
