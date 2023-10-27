@@ -37,7 +37,7 @@ class CompanyController {
     try {
       $companySaved = $this->companyService->save($company);
 
-      $response->getBody()->write(json_encode($companySaved));
+      $response->getBody()->write(json_encode($companySaved->jsonSerialize()));
       return $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(201);
@@ -47,13 +47,16 @@ class CompanyController {
   }
 
   public function update(ServerRequestInterface $request, ResponseInterface $response, array $args) {
-    $company = (array) $request->getParsedBody();
+    $data = (object) $request->getParsedBody();
     $id = intval($args['id']);
+
+    $company = new CompanyModel();
+    $company->setName($data->name);
 
     try {
       $updatedCompany = $this->companyService->update($company, $id);
 
-      $response->getBody()->write(json_encode($updatedCompany));
+      $response->getBody()->write(json_encode($updatedCompany->jsonSerialize()));
       return $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(200);

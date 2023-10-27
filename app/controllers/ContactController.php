@@ -2,6 +2,7 @@
 
 namespace ContactsApi\Controllers;
 
+use ContactsApi\Models\ContactModel;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use ContactsApi\Services\ContactService;
@@ -30,33 +31,51 @@ class ContactController {
   }
 
   public function create(ServerRequestInterface $request, ResponseInterface $response) {
-    $contact = (array) $request->getParsedBody();
+    $data = (object) $request->getParsedBody();
+    
+    $contact = new ContactModel();
+    $contact->setName($data->name);
+    $contact->setLastName($data->last_name);
+    $contact->setBirthDate($data->birth_date);
+    $contact->setLandline($data->landline);
+    $contact->setCellPhone($data->cell_phone);
+    $contact->setEmail($data->email);
+    $contact->setCompanyId($data->company_id);
     
     try {
       $contactSaved = $this->contactService->save($contact);
 
-      $response->getBody()->write(json_encode($contactSaved));
+      $response->getBody()->write(json_encode($contactSaved->jsonSerialize()));
       return $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(201);
     }catch (\Exception $e) {
-      throw new \Exception("Falha ao cadastrar contato!");
+      throw new \Exception("Falha ao cadastrar contato! ".$e);
     }
   }
 
   public function update(ServerRequestInterface $request, ResponseInterface $response, array $args) {
-    $contact = (array) $request->getParsedBody();
+    $data = (object) $request->getParsedBody();
     $id = intval($args['id']);
+
+    $contact = new ContactModel();
+    $contact->setName($data->name);
+    $contact->setLastName($data->last_name);
+    $contact->setBirthDate($data->birth_date);
+    $contact->setLandline($data->landline);
+    $contact->setCellPhone($data->cell_phone);
+    $contact->setEmail($data->email);
+    $contact->setCompanyId($data->company_id);
 
     try {
       $contactUpdated = $this->contactService->update($contact, $id);
 
-      $response->getBody()->write(json_encode($contactUpdated));
+      $response->getBody()->write(json_encode($contactUpdated->jsonSerialize()));
       return $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(200);
     } catch (\Exception $e) {
-      throw new \Exception("Falha ao atualizar contato!");
+      throw new \Exception("Falha ao atualizar contato! ".$e);
     }
   }
 
