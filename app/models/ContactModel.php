@@ -11,7 +11,7 @@ class ContactModel {
     private string $landline;
     private string $cell_phone;
     private string $email;
-    private CompanyModel $company;
+    private int $company_id;
 
     public function getId() {
         return $this->id;
@@ -69,11 +69,15 @@ class ContactModel {
         $this->email = $email;
     }
 
-    public function getCompany() {
-        return $this->company;
+    public function getCompanyId() {
+        return $this->company_id;
     }
 
-    public function setCompany(CompanyModel $company) {
-        $this->company = $company;
+    public function setCompanyId(int $company_id) {
+        $this->company_id = $company_id;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }
