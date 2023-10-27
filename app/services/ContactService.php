@@ -2,6 +2,7 @@
 
 namespace ContactsApi\Services;
 
+use ContactsApi\Models\ContactModel;
 use ContactsApi\Repositories\ContactRepository;
 
 class ContactService {
@@ -16,11 +17,11 @@ class ContactService {
         return $this->contactRepository->findAllOrFilterByParam($params);
     }
 
-    public function save(array $contact) {
+    public function save(ContactModel $contact) {
         return $this->contactRepository->save($contact);
     }
 
-    public function update(array $contact, int $id) {
+    public function update(ContactModel $contact, int $id) {
         return $this->contactRepository->update($contact, $id);
     }
 
