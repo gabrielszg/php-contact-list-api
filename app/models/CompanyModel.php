@@ -22,4 +22,8 @@ class CompanyModel {
     public function setName(string $name) {
         $this->name = $name;
     }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
+    }
 }
