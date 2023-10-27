@@ -3,6 +3,7 @@
 namespace ContactsApi\Repositories;
 
 use ContactsApi\DB\Database;
+use ContactsApi\Models\ContactModel;
 
 class ContactRepository {
 
@@ -76,41 +77,43 @@ class ContactRepository {
         return $result;
     }
 
-    public function save(array $contact) {
+    public function save(ContactModel $contact) {
         $sql = 'INSERT INTO ' . self::$table . ' (name, last_name, birth_date, landline, cell_phone, email, company_id)
         VALUES (:name, :last_name, :birth_date, :landline, :cell_phone, :email, :company_id)';
         $stmt = Database::getInstance()->prepare($sql);
     
-        $stmt->bindValue(':name', $contact['name']);
-        $stmt->bindValue(':last_name', $contact['last_name']);
-        $stmt->bindValue(':birth_date', $contact['birth_date']);
-        $stmt->bindValue(':landline', $contact['landline']);
-        $stmt->bindValue(':cell_phone', $contact['cell_phone']);
-        $stmt->bindValue(':email', $contact['email']);
-        $stmt->bindValue(':company_id', $contact['company_id']);
+        $stmt->bindValue(':name', $contact->getName());
+        $stmt->bindValue(':last_name', $contact->getLastName());
+        $stmt->bindValue(':birth_date', $contact->getBirthDate());
+        $stmt->bindValue(':landline', $contact->getLandline());
+        $stmt->bindValue(':cell_phone', $contact->getCellPhone());
+        $stmt->bindValue(':email', $contact->getEmail());
+        $stmt->bindValue(':company_id', $contact->getCompanyId());
         $stmt->execute();
 
         return $contact;
     }
 
-    public function update(array $contact, int $id) {
+    public function update(ContactModel $contact, int $id) {
         $sql = 'UPDATE '.self::$table.' SET
                 name = :name, 
                 last_name = :last_name, 
                 birth_date = :birth_date, 
                 landline = :landline, 
                 cell_phone = :cell_phone, 
-                email = :email
+                email = :email,
+                company_id = :company_id
                 
                 WHERE id = :id';
 
         $stmt = Database::getInstance()->prepare($sql);
-        $stmt->bindValue(':name', $contact['name']);
-        $stmt->bindValue(':last_name', $contact['last_name']);
-        $stmt->bindValue(':birth_date', $contact['birth_date']);
-        $stmt->bindValue(':landline', $contact['landline']);
-        $stmt->bindValue(':cell_phone', $contact['cell_phone']);
-        $stmt->bindValue(':email', $contact['email']);
+        $stmt->bindValue(':name', $contact->getName());
+        $stmt->bindValue(':last_name', $contact->getLastName());
+        $stmt->bindValue(':birth_date', $contact->getBirthDate());
+        $stmt->bindValue(':landline', $contact->getLandline());
+        $stmt->bindValue(':cell_phone', $contact->getCellPhone());
+        $stmt->bindValue(':email', $contact->getEmail());
+        $stmt->bindValue(':company_id', $contact->getCompanyId());
         $stmt->bindValue(':id', $id);
         $stmt->execute();
 
